@@ -3,8 +3,10 @@
             [quil.middleware :as m])
   (use space.physics)
   (use space.math)
+  (use space.builder.genetic)
   (:import (java.util Date)
-           (space.physics Entity)))
+           (space.physics Entity)
+           (space.math Vec2)))
 
 ;; New entity creation utils
 
@@ -59,7 +61,8 @@
   (q/smooth)
   (q/frame-rate 60)
   (q/background 0)
-  (State. '() permutations nil))
+  (State. (gp-solve)
+          permutations nil))
 
 (defn update-state [state]
   (State.
@@ -140,14 +143,14 @@
     (assoc options :draw updated-draw)))
 
 (q/defsketch space
-  :size [600 600]
-  :setup setup
-  :draw draw-state
-  :update update-state
-  :mouse-pressed mouse-pressed
-  :mouse-released mouse-released
-  :mouse-dragged mouse-dragged
-  :middleware [show-frame-rate m/fun-mode])
+             :size [1000 1000]
+             :setup setup
+             :draw draw-state
+             :update update-state
+             :mouse-pressed mouse-pressed
+             :mouse-released mouse-released
+             :mouse-dragged mouse-dragged
+             :middleware [show-frame-rate m/fun-mode])
 
 (defn -main [& args] (println "Creating Space..."))
 

@@ -35,7 +35,9 @@
   [^Entity e]
   (-> e
       (update :coords (partial sum (:velocity e)))
-      (update :path #(take 100 (conj % (:coords e))))))
+      ;(update :path #(take 100 (conj % (:coords e))))
+      )
+  )
 
 (defn compute-gravity-between
   "Compute gravitational force for one entity to another"
